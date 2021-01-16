@@ -1,10 +1,16 @@
+//////   HTML elements
 const blockquote = document.querySelector('.blockquote');
 const btn = document.querySelector('.btn');
 const img = document.querySelector('img');
 const jokeCategory = document.querySelector('.jokes-category');
+
+//////// Listener functions
 btn.addEventListener('click', getJokes);
 
+////// Call functions
 getJokes();
+getCategory();
+
 ////////GET JOKE => Btn
 async function getJokes() {
   const config = {
@@ -23,7 +29,7 @@ async function getJokes() {
   setBg();
 }
 
-//////////////GET RANDOM JOKE FROM CATEGORY => Btn
+//////////////GET RANDOM JOKE FROM CATEGORY LIST => Btn
 async function getRandomJokes(random) {
   const config = {
     headers: {
@@ -53,6 +59,7 @@ const setBg = () => {
   document.body.style.backgroundColor = `#${randomColor}`;
 };
 
+///////Get all category from API
 async function getCategory() {
   const results = await fetch('https://api.chucknorris.io/jokes/categories');
   const category = await results.json();
@@ -60,6 +67,7 @@ async function getCategory() {
   createCategory(category);
 }
 
+/////Create category list
 function createCategory(category) {
   jokeCategory.innerHTML = '';
   category.forEach((item) => {
@@ -69,5 +77,3 @@ function createCategory(category) {
     jokeCategory.insertAdjacentHTML('afterbegin', html);
   });
 }
-
-getCategory();
